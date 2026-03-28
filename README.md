@@ -1,4 +1,4 @@
-# BugShikari 🕷️🎯
+# BugShikari
 
 <p align="center">
   <img src="https://img.shields.io/badge/Beginner-Friendly-green.svg" alt="Beginner Friendly">
@@ -6,143 +6,147 @@
   <img src="https://img.shields.io/badge/Status-Active-red.svg" alt="Status">
 </p>
 
-## 👋 What is BugShikari?
+BugShikari is a Python-based automated reconnaissance and web security scanning toolkit.
+It helps bug hunters and security researchers collect findings faster and convert them into
+detailed HTML reports that are easier to review and submit.
 
-Imagine you are a security guard hired to check if a building is safe. You have to check every door, every window, see
-if the alarm works, and check if anyone left their keys under the doormat. Doing this manually for a huge castle (a big
-website like Google or Facebook) would take forever!
+## Table of Contents
 
-**BugShikari** is your robot assistant. It automatically runs around the building, checks all the locks, looks for
-hidden entrances, and reads the notes left by the builders to see if they made any mistakes.
+- [What This Project Does](#what-this-project-does)
+- [Why BugShikari](#why-bugshikari)
+- [How It Works](#how-it-works)
+- [Modules Included](#modules-included)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Quick Demo](#quick-demo)
+- [Project Links](#project-links)
+- [Cookies: Missing or Wrong Cookies](#cookies-missing-or-wrong-cookies)
+- [Important Legal Note](#important-legal-note)
+- [Disclaimer](#disclaimer)
 
-In technical terms, it is an **automated reconnaissance and vulnerability scanner**. It helps "Bug Hunters" (people who
-find security flaws for money) find weak spots in websites without doing all the boring work manually.
+## What This Project Does
 
----
+Think of BugShikari like a security assistant for target domains:
 
-## ⚡ Why Use This?
+- It discovers attack surface (subdomains, ports, technologies, content paths).
+- It checks common web security misconfigurations.
+- It analyzes JavaScript files for secrets/endpoints and related risk context.
+- It combines all saved module outputs into a single HTML report.
 
-* **For Beginners:** It teaches you *what* to look for. By reading the reports it generates, you learn about different
-  types of security bugs.
-* **For Pros:** It saves hours of time. While you drink coffee ☕, BugShikari gathers all the data you need to start
-  hacking.
-* **It's Safe:** It performs "Passive" and "Non-Intrusive" scans mostly. It doesn't break the website; it just looks at
-  it very closely.
+## Why BugShikari
 
----
+- Beginner-friendly workflow: simple CLI and interactive mode.
+- Fast triage: severity-based findings and categorized output.
+- Modular scans: run one module or full scan depending on your need.
+- Reusable reporting: generate report again from existing JSON results.
 
-## 🔍 How Does It Work?
+## How It Works
 
-BugShikari works in 4 simple steps:
+1. **Target normalization**: input like `https://example.com/path` is sanitized.
+2. **Module execution**: selected modules run and save JSON in `results/`.
+3. **Evidence mapping**: report engine reads JSON and builds finding sections.
+4. **HTML reporting**: one final report is generated with summaries and details.
 
-1. **Mapping the Area (Subdomain Enumeration)**:
-    * It finds all the different sections of a website (like `shop.example.com`, `admin.example.com`).
-2. **Checking the Rules (Security Headers & CSP)**:
-    * It looks at the security rules the website has set up. Are they strict? Or did they forget to lock the front door?
-3. **Hunting for Secrets (JS Analysis & Dorks)**:
-    * It reads the computer code (JavaScript) that the website sends to your browser to see if the developers
-      accidentally left passwords or "API keys" inside.
-4. **Generating the Report**:
-    * It creates a beautiful HTML file that looks like a report card, showing you everything it found, graded by how
-      dangerous it is (Critical, High, Medium, Low).
+## Modules Included
 
----
+1. Subdomain Enumeration
+2. HTTP Header Analyzer
+3. CSP Analyzer
+4. Technology Fingerprinting
+5. Google Dork Generator
+6. CORS Scanner
+7. JavaScript Analyzer
+8. Open Redirect Scanner
+9. Port Scanner
+10. Content Discovery
 
-## 🛠️ How to Install (Step-by-Step)
+## Installation
 
-You need to have **Python** installed on your computer. If you don't have it, download it
-from [python.org](https://www.python.org/).
+1. Clone the repository.
+2. Install dependencies.
 
-1. **Download this tool**:
-    * Click the green "Code" button above and choose "Download ZIP", then unzip it.
-    * OR run this command in your terminal:
-      ```bash
-      git clone https://github.com/yourusername/BugShikari.git
-      ```
+```powershell
+git clone https://github.com/yourusername/BugShikari.git
+cd BugShikari
+pip install -r requirements.txt
+```
 
-2. **Open your Terminal/Command Prompt**:
-    * Go into the folder where you downloaded BugShikari.
-      ```bash
-      cd BugShikari
-      ```
+## Usage
 
-3. **Install the requirements**:
-    * BugShikari needs some helper tools (libraries) to work. Install them with:
-      ```bash
-      pip install -r requirements.txt
-      ```
+### Run all scan modules for a target
 
----
-
-## 🚀 How to Use It
-
-Using BugShikari is very easy. You just tell it which website to scan.
-
-### 1. The Basic Scan (Recommended)
-
-This runs all the checks and generates a report.
-
-```bash
+```powershell
 python main.py --target example.com
 ```
 
-### 2. Run Specific Modules
+### Run a specific module
 
-If you only want to run a specific test (like checking for open redirects):
-
-```bash
+```powershell
 python main.py --target example.com --module 8
 ```
 
-### 3. Generate Report Only
+### Interactive mode
 
-If you have already run scans and just want to re-generate the HTML report:
-
-```bash
-python main.py --report
-```
-
-### 4. The Interactive Mode
-
-If you don't like typing long commands, just run:
-
-```bash
+```powershell
 python main.py
 ```
 
-It will ask you nicely what you want to do!
+### Generate report only (from existing JSON results)
 
-### 5. See the Report
+```powershell
+python main.py --report
+```
 
-After the scan finishes, go to the `results` folder. You will see a file like `report_example_com_....html`.
-Double-click it to open it in your browser!
+After report generation, open the latest report file from `results/`, for example:
+`report_example_com_YYYYMMDD_HHMMSS.html`.
+
+## Quick Demo
+
+Run a full scan and generate report:
+
+```powershell
+python main.py --target example.com
+```
+
+Run only JavaScript analysis:
+
+```powershell
+python main.py --target example.com --module 7
+```
+
+Generate HTML report from already saved JSON results:
+
+```powershell
+python main.py --report
+```
+
+## Project Links
+
+- Repository: `https://github.com/RITURAJRAMAN/BugShikari`
+- Issues: `https://github.com/RITURAJRAMAN/BugShikari/issues`
+
+## Cookies: Missing or Wrong Cookies
+
+If a module needs authenticated access and cookies are missing/invalid:
+
+- Public endpoints still scan normally.
+- Auth-only pages may return redirect/login/403 and produce limited findings.
+- Results can include false negatives for protected areas.
+
+Recommendation: use cookies that belong to the same target domain and valid session scope.
+
+## Important Legal Note
+
+Use BugShikari only on assets you own or where you have explicit permission to test.
+Unauthorized scanning can violate law and platform policies.
+
+## Disclaimer
+
+This toolkit produces **automated scan output**, not a manual penetration test report.
+Always validate findings manually before disclosure/submission.
 
 ---
 
-## 📚 What Checks Does It Run? (The Technical Stuff)
+BugShikari by Rituraj Raman
 
-For those who want to know exactly what's happening under the hood:
-
-* **Subdomain Discovery**: Finds hidden parts of the site.
-* **Security Headers**: Checks if the site protects users from common attacks (XSS, Clickjacking).
-* **CSP Analysis**: Checks if the Content Security Policy is strong enough.
-* **CORS Scanner**: Checks if the site accidentally lets other bad sites read its data.
-* **JavaScript Secrets**: Scans code for accidental leaks of passwords/keys.
-* **Open Redirects**: Checks if the site can be used to trick users into going to a fake site.
-* **Tech Fingerprinting**: Guesses what software the site is running (WordPress, React, etc.).
-
----
-
-## ⚠️ Important Warning
-
-**Only use this on websites you have permission to test!**
-
-* **Authorized:** Your own website, or companies with "Bug Bounty Programs" (like Google, Facebook, etc.).
-* **Unauthorized:** Your neighbor's blog, your school's website (unless they said yes). **This is illegal.**
-
-**Be a Shikari (Hunter), not a criminal.** 🕵️‍♂️
-
----
-
-**BugShikari** by **Rituraj Raman**
-*Make the web safer, one bug at a time.*
+Make the web safer, one bug at a time.
