@@ -68,7 +68,7 @@ Think of BugShikari like a security assistant for target domains:
 2. Install dependencies.
 
 ```powershell
-git clone https://github.com/yourusername/BugShikari.git
+git clone https://github.com/RITURAJRAMAN/BugShikari.git
 cd BugShikari
 pip install -r requirements.txt
 ```
