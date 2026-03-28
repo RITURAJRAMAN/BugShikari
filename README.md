@@ -21,8 +21,10 @@ detailed HTML reports that are easier to review and submit.
 - [Quick Demo](#quick-demo)
 - [Project Links](#project-links)
 - [Cookies: Missing or Wrong Cookies](#cookies-missing-or-wrong-cookies)
+- [Contributing](#contributing)
 - [Important Legal Note](#important-legal-note)
 - [Disclaimer](#disclaimer)
+- [License](#license)
 
 ## What This Project Does
 
@@ -94,11 +96,14 @@ python main.py
 ### Generate report only (from existing JSON results)
 
 ```powershell
-python main.py --report
+python main.py --report example.com
 ```
 
 After report generation, open the latest report file from `results/`, for example:
 `report_example_com_YYYYMMDD_HHMMSS.html`.
+
+Note: `--report` requires a domain value and builds the HTML report from matching
+JSON files already present in `results/`.
 
 ## Quick Demo
 
@@ -117,7 +122,7 @@ python main.py --target example.com --module 7
 Generate HTML report from already saved JSON results:
 
 ```powershell
-python main.py --report
+python main.py --report example.com
 ```
 
 ## Project Links
@@ -135,6 +140,15 @@ If a module needs authenticated access and cookies are missing/invalid:
 
 Recommendation: use cookies that belong to the same target domain and valid session scope.
 
+## Contributing
+
+Contributions are welcome.
+
+- Open an issue first for major changes so scope is clear.
+- Keep pull requests focused and easy to review.
+- Include reproduction steps for bug fixes when possible.
+- For scanner or report logic updates, attach a sample `results/` JSON and expected output behavior.
+
 ## Important Legal Note
 
 Use BugShikari only on assets you own or where you have explicit permission to test.
@@ -144,6 +158,10 @@ Unauthorized scanning can violate law and platform policies.
 
 This toolkit produces **automated scan output**, not a manual penetration test report.
 Always validate findings manually before disclosure/submission.
+
+## License
+
+This project is licensed under the MIT License. See `LICENSE` for more details.
 
 ---
 
